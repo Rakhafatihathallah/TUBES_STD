@@ -74,6 +74,7 @@ void buildGraph(graph &G) {
     addVertex(G, "Kiaracondong");
     addVertex(G, "Andir");
     addVertex(G, "Sukasari");
+    addVertex(G, "Baleendah");
     
     addEdge(G, "Bojongsoang", "Batununggal", 1200);
     addEdge(G, "Batununggal", "Bojongsoang", 1200);
@@ -129,9 +130,8 @@ void findShortestRoute(graph &G, string asal, string tujuan) {
     const int INF = INT_MAX;
     map<string, int> jarak;
     map<string, bool> dikunjungi;
-    map<string, string> prevVertex;  // Untuk menyimpan rute
+//    map<string, string> prevVertex;  // Untuk menyimpan rute
 
-    // Inisialisasi jarak dan dikunjungi
     for (vertex* temp = G.firstVertex; temp != nullptr; temp = temp->nextVertex) {
         jarak[temp->id] = INF;
         dikunjungi[temp->id] = false;
@@ -151,7 +151,6 @@ void findShortestRoute(graph &G, string asal, string tujuan) {
             }
         }
 
-        // Jika tidak ada vertex yang bisa diproses atau mencapai tujuan
         if (currentVertex == "" || currentVertex == tujuan) {
             break;
         }
@@ -164,7 +163,7 @@ void findShortestRoute(graph &G, string asal, string tujuan) {
                 int newDist = jarak[currentVertex] + tempEdge->jarak;
                 if (newDist < jarak[tempEdge->destDaerahId]) {
                     jarak[tempEdge->destDaerahId] = newDist;
-                    prevVertex[tempEdge->destDaerahId] = currentVertex; // Simpan vertex asal
+//                    prevVertex[tempEdge->destDaerahId] = currentVertex;
                 }
             }
         }
@@ -175,16 +174,15 @@ void findShortestRoute(graph &G, string asal, string tujuan) {
     } else {
         cout << "Jarak terpendek dari " << asal << " ke " << tujuan << ": " << jarak[tujuan] << " meter" << endl;
 
-        cout << "Rute: ";
-        string path = tujuan;
-        while (path != asal) {
-            path = prevVertex[path];
-            cout << path << " -> ";
-        }
-        cout << tujuan << endl;
+//        cout << "Rute: ";
+//        string path = tujuan;
+//        while (path != asal) {
+//            path = prevVertex[path];
+//            cout << path << " -> ";
+//        }
+//        cout << asal << endl;
     }
 }
-
 void showGraph(graph G) {
     vertex* tempVertex = G.firstVertex;
     while (tempVertex != nullptr) {
@@ -282,3 +280,4 @@ void showMenu() {
     cout << "0. Keluar" << endl;
     cout << "Pilih menu: ";
 }
+
