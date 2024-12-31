@@ -5,40 +5,105 @@
 //  Created by Rakha Fatih Athallah on 20/12/24.
 //
 #include "graph.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 int main() {
-    graph G = {nullptr};
+    graph G;
+    buildGraph(G);
+    int pilihan;
+    string asal, tujuan, namaDaerah;
+    int jarak;
+    bool kondisi;
 
-    // Menambahkan vertex (Kecamatan)
-    addVertex(G, "Bandung Kidul");
-    addVertex(G, "Batununggal");
-    addVertex(G, "Buahbatu");
-    addVertex(G, "Rancasari");
-    addVertex(G, "Kiaracondong");
-    addVertex(G, "Andir");
-    addVertex(G, "Sukasari");
+    do {
+        showMenu();
+        cin >> pilihan;
+        cin.ignore(); // Membersihkan input buffer
 
-    addEdge(G, "Bandung Kidul", "Batununggal", 5000);
-    addEdge(G, "Bandung Kidul", "Buahbatu", 10000);
-    addEdge(G, "Batununggal", "Rancasari", 7000);
-    addEdge(G, "Buahbatu", "Kiaracondong", 3000);
-    addEdge(G, "Rancasari", "Andir", 4000);
-    addEdge(G, "Kiaracondong", "Sukasari", 6000);
-    addEdge(G, "Andir", "Sukasari", 8000);
+        switch (pilihan) {
+            case 1:
+                cout << "Masukkan nama daerah baru: ";
+                getline(cin, namaDaerah);
+                addVertex(G, namaDaerah);
+                cout << "Daerah " << namaDaerah << " berhasil ditambahkan.\n";
+                break;
 
-    cout << "Daftar Kecamatan (Vertex):\n";
-    showVertex(G);
-    cout << "Daftar Rute (Edge):\n";
-    showEdge(G);
+            case 2:
+                cout << "Masukkan asal: ";
+                getline(cin, asal);
+                cout << "Masukkan tujuan: ";
+                getline(cin, tujuan);
+                cout << "Masukkan jarak (meter): ";
+                cin >> jarak;
+                cin.ignore();
+                addEdge(G, asal, tujuan, jarak);
+                cout << "Rute dari " << asal << " ke " << tujuan << " berhasil ditambahkan.\n";
+                break;
 
-    cout << "\nMenemukan rute terpendek dari Bandung Kidul ke Sukasari:\n";
-    dijkstra(G, "Bandung Kidul", "Sukasari");
+            case 3:
+                cout << "Masukkan nama daerah yang akan dihapus: ";
+                getline(cin, namaDaerah);
+                deleteDaerah(G, namaDaerah);
+                cout << "Daerah " << namaDaerah << " berhasil dihapus.\n";
+                break;
 
-    cout << "\nMengubah kondisi jalan antara Bandung Kidul dan Batununggal menjadi tidak bisa dilalui.\n";
-    setRoadCondition(G, "Bandung Kidul", "Batununggal", false);
-    cout << "Setelah perubahan kondisi jalan:\n";
-    showEdge(G);
+            case 4:
+                cout << "Masukkan asal: ";
+                getline(cin, asal);
+                cout << "Masukkan tujuan: ";
+                getline(cin, tujuan);
+                deleteRute(G, asal, tujuan);
+                cout << "Rute dari " << asal << " ke " << tujuan << " berhasil dihapus.\n";
+                break;
+
+            case 5:
+                cout << "Graf saat ini:\n";
+                showGraph(G);
+                break;
+
+            case 6:
+                cout << "Masukkan asal: ";
+                getline(cin, asal);
+                cout << "Masukkan tujuan: ";
+                getline(cin, tujuan);
+                cout << "Kondisi jalan (1 untuk bisa dilalui, 0 untuk tidak bisa): ";
+                cin >> kondisi;
+                cin.ignore();
+                setRoadCondition(G, asal, tujuan, kondisi);
+                cout << "Kondisi jalan berhasil diperbarui.\n";
+                break;
+
+            case 7:
+                cout << "Masukkan asal: ";
+                getline(cin, asal);
+                cout << "Masukkan tujuan: ";
+                getline(cin, tujuan);
+                findShortestRoute(G, asal, tujuan);
+                break;
+
+            case 8:
+                cout << "Daftar semua rute:\n";
+                showEdge(G);
+                break;
+
+            case 9:
+                cout << "Daftar semua daerah:\n";
+                showVertex(G);
+                break;
+
+            case 0:
+                cout << "Terima kasih telah menggunakan sistem ini.\n";
+                break;
+
+            default:
+                cout << "Pilihan tidak valid. Silakan coba lagi.\n";
+        }
+
+        cout << endl;
+    } while (pilihan != 0);
 
     return 0;
 }
-
