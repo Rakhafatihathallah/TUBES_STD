@@ -4,6 +4,8 @@
 //
 //  Created by Rakha Fatih Athallah on 20/12/24.
 //
+#ifndef GRAPH_H
+#define GRAPH_H
 
 #include <iostream>
 #include <map>
@@ -49,4 +51,3 @@ void showEdge(graph G);
 void showMenu();
 
 #endif /* GRAPH_H */
-
