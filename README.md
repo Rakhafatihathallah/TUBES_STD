@@ -1,4 +1,4 @@
-Dibuat untuk memenuhi tugas besar matakuliah Struktur Data
+Dibuat untuk memenuhi tugas besar mata kuliah Struktur Data
 
 Anggota Kelompok:
 - Rakha Fatih Athallah (103022300130)
